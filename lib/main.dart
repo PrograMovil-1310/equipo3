@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
+import 'package:flutter_proyecto_recordatorios/Agregar.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -146,64 +148,18 @@ class _ReminderListScreenState extends State<ReminderListScreen> {
   }
 }
 
-class AddReminderScreen extends StatelessWidget {
-  final Function(Reminder) onAddReminder;
-
-  AddReminderScreen({required this.onAddReminder});
-
-  @override
-  Widget build(BuildContext context) {
-    String title = '';
-    String date = '';
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Añadir Recordatorio'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              decoration: const InputDecoration(labelText: 'Título'),
-              onChanged: (value) {
-                title = value;
-              },
-            ),
-            const SizedBox(height: 20.0),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Fecha'),
-              onChanged: (value) {
-                date = value;
-              },
-            ),
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                if (title.isNotEmpty && date.isNotEmpty) {
-                  Reminder newReminder = Reminder(title: title, date: date);
-                  onAddReminder(newReminder);
-                  Navigator.pop(context);
-                }
-              },
-              child: const Text('Añadir Recordatorio'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class Reminder {
+  final int id;
   final String title;
   final String date;
+  final DateTime dateTime;
   bool isCompleted;
 
   Reminder({
+    required this.id,
     required this.title,
     required this.date,
+    required this.dateTime,
     this.isCompleted = false,
   });
 
